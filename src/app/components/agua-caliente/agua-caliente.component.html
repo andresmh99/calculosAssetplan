@@ -1,8 +1,8 @@
-<form class="needs-validation" novalidate (ngSubmit)="calcularAguaCaliente()" [formGroup]="form" id="form">
+<form class="needs-validation bg-slate-100" novalidate (ngSubmit)="calcularAguaCaliente()" [formGroup]="form" id="form">
 
-    <input type="number" placeholder="0000" >
-    <div>
-        <label for="sku" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SKU:</label>
-        <input type="text" name="sku" id="sku" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="0120405030"  formControlName="sku" required>
-     </div>
+  <div class="grid m-auto w-3/4">
+    <span>{{valor}} CLP</span>
+    <span>{{fecha | date: 'dd/MM/yyyy'}}</span>
+  </div>
+
 </form>
