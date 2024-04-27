@@ -20,20 +20,12 @@ import { CommonModule } from '@angular/common';
 export class AguaCalienteComponent {
   data: Uf[] = [];
   fecha: Date = new Date();
-  valor: number = 0;;
+  valor: number = 0;
+  ufContrato: number = 0.2;
 
   form = new FormGroup({
     id: new FormControl(''),
-    nombreProducto: new FormControl(''),
-    descripcion: new FormControl(''),
-    precioVenta: new FormControl(''),
-    precioCompra: new FormControl(''),
-    sku: new FormControl(''),
-    marca: new FormControl(''),
-    stock: new FormControl(''),
-    imagen: new FormControl(),
-    sourceFile: new FormControl(),
-    idCategoria: new FormControl(''),
+    ufContrato: new FormControl()
   });
 
   constructor(private ufService: ApiService) {}
@@ -51,5 +43,8 @@ export class AguaCalienteComponent {
     });
   }
 
-  calcularAguaCaliente() {}
+  calcularAguaCaliente() {
+    this.ufContrato = this.form.value.ufContrato
+    console.log(this.ufContrato);
+  }
 }
