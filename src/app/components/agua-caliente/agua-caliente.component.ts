@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { afterRender, Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -40,8 +40,11 @@ export class AguaCalienteComponent {
 
   ngOnInit(): void {
     this.obtenerValorUF();
-    this.calcularPrecioMetroCubico();
     this.modificarValorContrato();
+
+    afterRender(() => {
+      this.calcularPrecioMetroCubico();
+    });
   }
 
   obtenerValorUF() {
