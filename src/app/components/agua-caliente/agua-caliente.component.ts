@@ -5,11 +5,9 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { environment } from '../../../environments/environment.development';
 import { ApiService } from '../../services/api.service';
 import { Uf } from '../../interfaces/Iuf';
 import { CommonModule } from '@angular/common';
-import { CLIENT_RENEG_LIMIT } from 'node:tls';
 
 @Component({
   selector: 'app-agua-caliente',
@@ -23,14 +21,13 @@ export class AguaCalienteComponent {
   fecha: Date = new Date();
   valorUF: number = 0;
   ufContrato: number = 0.2;
-  precioMetroCubico: number =0;
+  precioMetroCubico: number = 0;
   lecturaInicial: number = 0;
   lecturaFinal: number = 0;
   consumoTotal: number = 0;
-  totalPago: number =0;
+  totalPago: number = 0;
   isChecked: boolean = false;
-  readonly:boolean = false
-
+  readonly: boolean = false;
 
   form = new FormGroup({
     id: new FormControl(''),
@@ -44,7 +41,7 @@ export class AguaCalienteComponent {
   ngOnInit(): void {
     this.obtenerValorUF();
     this.calcularPrecioMetroCubico();
-    this.modificarValorContrato()
+    this.modificarValorContrato();
   }
 
   obtenerValorUF() {
@@ -57,31 +54,29 @@ export class AguaCalienteComponent {
   }
 
   calcularPrecioMetroCubico() {
-    this.ufContrato = this.form.value.ufContrato
-    this.precioMetroCubico = this.ufContrato * this.valorUF
-    this.calcularPagoTotal(this.precioMetroCubico,this.consumoTotal)
+    this.ufContrato = this.form.value.ufContrato;
+    this.precioMetroCubico = this.ufContrato * this.valorUF;
+    this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
   }
-  modificarValorContrato(){
-     this.readonly = !this.readonly
-     if(!this.isChecked){
-      this.ufContrato = 0.2
-      this.precioMetroCubico = this.ufContrato * this.valorUF
-      this.calcularPagoTotal(this.precioMetroCubico,this.consumoTotal)
-
-     }else{
-      this.ufContrato = this.form.value.ufContrato
-      this.precioMetroCubico = this.ufContrato * this.valorUF
-      this.calcularPagoTotal(this.precioMetroCubico,this.consumoTotal)
-     }
-
+  modificarValorContrato() {
+    this.readonly = !this.readonly;
+    if (!this.isChecked) {
+      this.ufContrato = 0.2;
+      this.precioMetroCubico = this.ufContrato * this.valorUF;
+      this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
+    } else {
+      this.ufContrato = this.form.value.ufContrato;
+      this.precioMetroCubico = this.ufContrato * this.valorUF;
+      this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
+    }
   }
-  calcularConsumoAguaCaliente(){
-      this.lecturaInicial = this.form.value.lecturaInicial
-      this.lecturaFinal = this.form.value.lecturaFinal
-      this.consumoTotal= this.lecturaFinal - this.lecturaInicial
-      this.calcularPagoTotal(this.precioMetroCubico,this.consumoTotal)
+  calcularConsumoAguaCaliente() {
+    this.lecturaInicial = this.form.value.lecturaInicial;
+    this.lecturaFinal = this.form.value.lecturaFinal;
+    this.consumoTotal = this.lecturaFinal - this.lecturaInicial;
+    this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
   }
-  calcularPagoTotal(precioMetroCubico: number, consumoTotal:number ){
-    this.totalPago= consumoTotal*precioMetroCubico
+  calcularPagoTotal(precioMetroCubico: number, consumoTotal: number) {
+    this.totalPago = consumoTotal * precioMetroCubico;
   }
 }
