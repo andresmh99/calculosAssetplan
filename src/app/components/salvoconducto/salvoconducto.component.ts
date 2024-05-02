@@ -7,7 +7,8 @@ import {
 } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { Uf } from '../../interfaces/Iuf';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { cupon, tipoCupon } from '../../interfaces/ICupones';
 
 @Component({
   selector: 'app-salvoconducto',
@@ -17,18 +18,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './salvoconducto.component.css',
 })
 export class SalvoconductoComponent {
-  data: Uf[] = [];
   fecha: Date = new Date();
-  valorUF: number = 0;
-  ufContrato: number = 0.2;
-  precioMetroCubico: number = 0;
-  lecturaInicial: number = 0;
-  lecturaFinal: number = 0;
-  consumoTotal: number = 0;
-  totalPago: number = 0;
-  isChecked: boolean = false;
-  readonly: boolean = false;
-
   fechaInicio: Date = new Date();
   fechaFinal: Date = new Date();
   cantidadDiasMes: number = 0;
@@ -39,6 +29,9 @@ export class SalvoconductoComponent {
   totalCupon: number = 0;
   descuentoCupon: number = 0;
 
+  cupones: cupon[] = [];
+  tipoCupon = ['Arriendo', 'Gasto Comun', 'Energía Eléctrica', 'Agua'];
+
   form = new FormGroup({
     id: new FormControl(''),
     ufContrato: new FormControl(),
@@ -47,44 +40,25 @@ export class SalvoconductoComponent {
     fechaInicio: new FormControl(),
     fechaFinal: new FormControl(),
     cupon: new FormControl(),
-
+    TipoCupon: new FormControl(),
   });
 
-  constructor(private ufService: ApiService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.obtenerValorUF();
-    this.calcularPrecioMetroCubico();
-    this.modificarValorContrato();
-  }
-
-  mostrarFecha() {
-    this.fechaInicio = new Date(this.form.value.fechaInicio);
-    this.fechaFinal = new Date(this.form.value.fechaFinal);
-
-    const diferencia = this.fechaFinal.getTime() - this.fechaInicio.getTime();
-
-    this.rango = Math.round(diferencia / (1000 * 3600 * 24));
-
-    const fechaSeleccionada = new Date(this.fechaInicio); // Ejemplo: 15 de abril de 2024
-    const cantidadDias = this.obtenerDiasDelMes(fechaSeleccionada);
-    console.log('Cantidad de días en el mes seleccionado:', cantidadDias);
-    console.log(new Date(2024, 2, 0).getDate());
+  ngOnInit(): void {}
 
 
-  }
-  calcularValorDia(){
-
+  calcularValorDia() {
     this.cupon = this.form.value.cupon;
-    this.totalCupon = (this.cupon/this.cantidadDiasMes) * this.diasAPargar
-    this.descuentoCupon = this.cupon - this.totalCupon
+    this.totalCupon = (this.cupon / this.cantidadDiasMes) * this.diasAPargar;
+    this.descuentoCupon = this.cupon - this.totalCupon;
   }
 
   mostrarCantidadDiasMes() {
     this.fechaInicio = new Date(this.form.value.fechaInicio);
     const fechaSeleccionada = new Date(this.fechaInicio);
     this.cantidadDiasMes = this.obtenerDiasDelMes(fechaSeleccionada);
-    this.diasAPargar = fechaSeleccionada.getDate() + 1
+    this.diasAPargar = fechaSeleccionada.getDate() + 1;
   }
 
   obtenerDiasDelMes(fecha: Date): number {
@@ -98,44 +72,26 @@ export class SalvoconductoComponent {
 
     // Obtenemos el día del mes (el número de días)
     const cantidadDias = ultimoDiaDelMes.getDate();
-    console.log(ultimoDiaDelMes);
 
     return cantidadDias;
   }
 
-  obtenerValorUF() {
-    this.ufService.obtenerValorUF().subscribe((res) => {
-      res.UFs.map((uf) => {
-        this.valorUF = parseFloat(uf.Valor.replace('.', ''));
-        this.fecha = uf.Fecha;
-      });
-    });
-  }
-
-  calcularPrecioMetroCubico() {
-    this.ufContrato = this.form.value.ufContrato;
-    this.precioMetroCubico = this.ufContrato * this.valorUF;
-    this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
-  }
-  modificarValorContrato() {
-    this.readonly = !this.readonly;
-    if (!this.isChecked) {
-      this.ufContrato = 0.2;
-      this.precioMetroCubico = this.ufContrato * this.valorUF;
-      this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
-    } else {
-      this.ufContrato = this.form.value.ufContrato;
-      this.precioMetroCubico = this.ufContrato * this.valorUF;
-      this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
+  guardarCupon() {
+    const cupon: cupon = {
+      tipoCupon: this.form.value.TipoCupon,
+      fecha: this.form.value.fechaInicio,
+      descripcion: `(${this.cupon}/${this.cantidadDiasMes})*${
+        this.diasAPargar
+      } = ${Math.round(this.totalCupon)}`,
+      monto: this.totalCupon,
+      descuento: this.descuentoCupon,
+      total: this.totalCupon,
+      valorDia: this.cupon / this.cantidadDiasMes,
+    };
+    if(this.form.valid){
+      this.cupones.push(cupon);
+      this.form.reset();
     }
-  }
-  calcularConsumoAguaCaliente() {
-    this.lecturaInicial = this.form.value.lecturaInicial;
-    this.lecturaFinal = this.form.value.lecturaFinal;
-    this.consumoTotal = this.lecturaFinal - this.lecturaInicial;
-    this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
-  }
-  calcularPagoTotal(precioMetroCubico: number, consumoTotal: number) {
-    this.totalPago = consumoTotal * precioMetroCubico;
+
   }
 }

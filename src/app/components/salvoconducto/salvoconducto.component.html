@@ -1,102 +1,114 @@
 <main>
   <div class=" bg-white rounded-md shadow p-4 max-w-7xl py-6 sm:px-6 my-5 mx-auto lg:px-8">
      <div class="mx-auto max-w-7xl  py-6 ">
-        <h3 class="text-3xl font-bold tracking-tight text-gray-900">Cálculo SC</h3>
+        <h3 class="text-3xl font-bold tracking-tight text-gray-900">Cálculo cupones SC</h3>
+        <p class="mt-1 text-sm leading-6 text-gray-600">A continuación ingresa los datos de salida del residente para calcular los cupones a cargar en Stream rent.</p>
      </div>
-     <form class="needs-validation " novalidate [formGroup]="form" id="form">
-
-      <input type="date" name="fechaInicio" id="fechaInicio" formControlName="fechaInicio" (input)="mostrarCantidadDiasMes()">
-      <span class="mx-3">{{cantidadDiasMes}}</span>
-      <br>
-      <input class="block  rounded-md border-0 py-1.5 px-7  text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"  type="number" name="cupon" id="cupon" formControlName="cupon" (input)="calcularValorDia()">
-      <br>
-      <span>Dias a pagar: {{diasAPargar}}</span>
-      <br>
-      <span>Total a pagar:{{totalCupon | currency : 'CLP': ''}} CLP</span>
-      <br>
-      <span>Total a descontar:{{descuentoCupon | currency : 'CLP': ''}} CLP</span>
-
-
-
-
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-           <div class="sm:col-span-3">
-              <div class="group relative flex gap-x-6 rounded-lg p-4 bg-gray-50">
-                 <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
-                    <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                       <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M8 7V6a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1M3 18v-7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
-                    </svg>
-                 </div>
-                 <div>
-                    <a href="https://www.google.com/finance/quote/CLF-CLP?sa=X&ved=2ahUKEwi7mvq0k-OFAxXXH7kGHdyDCdoQmY0JegQIHhAp" target="_blank" class="font-semibold text-gray-900">
-                    Valor UF: <b class="text-indigo-600">{{valorUF | currency : 'CLP': ''}}</b> CLP
+     <form class="needs-validation " novalidate [formGroup]="form" id="form" (ngSubmit)="guardarCupon()">
+     <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+           <div class="group relative flex gap-x-6 rounded-lg p-4 bg-gray-50">
+              <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
+                 <svg class="w-6 h-6  text-indigo-600"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
+                 </svg>
+              </div>
+              <div>
+                 <div class="font-semibold text-gray-900">
+                    Días proporcionales: <b class="text-indigo-600">{{diasAPargar}}</b>
                     <span class="absolute inset-0"></span>
-                    </a>
-                    <p class="mt-1 text-gray-600">Valor actualizado con fecha: {{fecha | date: 'dd/MM/yyyy'}}</p>
                  </div>
-              </div>
-           </div>
-           <div class="sm:col-span-3">
-              <div class="group relative flex gap-x-6 rounded-lg p-4 bg-gray-50">
-                 <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
-                    <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                       <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2h-1v3a1 1 0 1 1-2 0v-3h-1v3a1 1 0 1 1-2 0v-3h-1v3a1 1 0 1 1-2 0v-3H7a1 1 0 1 1 0-2h3v-1H7a1 1 0 1 1 0-2h3V8H7a1 1 0 0 1 0-2h3V5a2 2 0 0 0-2-2H5Z" clip-rule="evenodd"/>
-                    </svg>
+                 <p class="mt-1 text-gray-600 text-sm">Días proporcionales del mes de salida</p>
+                 <div class="font-semibold text-gray-900">
+                    Días del mes: <b class="text-indigo-600">{{cantidadDiasMes}}</b>
+                    <span class="absolute inset-0"></span>
                  </div>
-                 <div>
-                    <div class="font-semibold text-gray-900">
-                       Valor m3: <b class="text-indigo-600">{{precioMetroCubico | currency : 'CLP': ''}}</b> CLP
-                       <span class="absolute inset-0"></span>
-                    </div>
-                    <p class="mt-1 text-gray-600">Cálculo a partir de valor contrato x precio UF</p>
-                 </div>
+                 <p class="mt-1 text-gray-600 text-sm">Número de días que tiene es mes proporcional</p>
               </div>
            </div>
         </div>
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-           <div class="sm:col-span-3">
-              <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Precio Contrato:</label>
-              <p class="mt-1 text-sm leading-6 text-gray-600">Cantidad de UF pactadas en el Contrato</p>
-              <div class="flex items-center">
-                 <div class="relative mt-2 rounded-md shadow-sm">
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                       <span class="text-gray-500 sm:text-sm">$</span>
-                    </div>
-                    <input type="number" name="ufContrato" id="ufContrato" class="block w-full rounded-md border-0 py-1.5 px-7  text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" [(value)]="ufContrato" min="0" required="" formControlName="ufContrato" placeholder="{{ufContrato}}" (input)="calcularPrecioMetroCubico()" [readonly]="readonly">
-                 </div>
-                 <div class="mx-2 flex items-center">
-                    <p class="mt-1 text-sm leading-6 text-gray-500">Modificar</p>
-                    <input type="checkbox" name="modificarValorContrato" id="modificarValorContrato" [(ngModel)]="isChecked" [ngModelOptions]="{standalone: true}" (change)="modificarValorContrato()" class="h-4 w-4 mx-2 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                 </div>
-              </div>
-           </div>
-        </div>
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-           <div class="sm:col-span-2">
-              <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Lectura Inicial:</label>
-              <div class="relative mt-2 rounded-md shadow-sm">
-                 <input type="number" name="lecturaInicial" id="lecturaInicial" class="block w-full rounded-md border-0 py-1.5 px-7  text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" [(value)]="lecturaInicial" min="0" required="" formControlName="lecturaInicial" placeholder="{{lecturaInicial}}">
-              </div>
-           </div>
-           <div class="sm:col-span-2">
-              <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Lectura Final:</label>
-              <div class="relative mt-2 rounded-md shadow-sm">
-                 <input type="number" name="lecturaFinal" id="lecturaFinal" class="block w-full rounded-md border-0 py-1.5 px-7  text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" [(value)]="lecturaFinal" min="0" required="" formControlName="lecturaFinal" placeholder="{{lecturaFinal}}" (input)="calcularConsumoAguaCaliente()">
-              </div>
-           </div>
-           <div class="sm:col-span-2">
-              <div>
-                 <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Total Consumo:</label>
-                 <p class="mt-1 text-gray-600">Diferencia Lectura Final - Lectura Inicial</p>
-                 <span class="font-semibold text-gray-900"><b class="text-indigo-600">{{consumoTotal | number}}</b> m3</span>
+        <div class="sm:col-span-3">
+           <div class="group relative flex gap-x-6 rounded-lg p-4 bg-gray-50">
+              <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
+                 <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M8 7V6a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1M3 18v-7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                 </svg>
               </div>
               <div>
-                 <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Total a pagar:</label>
-                 <p class="mt-1 text-gray-600">Cantidad de m3 consumida x Precio m3</p>
-                 <span class="font-semibold text-gray-900"><b class="text-indigo-600">{{totalPago | currency : 'CLP': ''}}</b> CLP</span>
+                 <div class="font-semibold text-gray-900">
+                    Total a pagar: <b class="text-indigo-600">{{totalCupon | currency : 'CLP': ''}}</b> CLP
+                    <span class="absolute inset-0"></span>
+                 </div>
+                 <p class="mt-1 text-gray-600 text-sm">Total pago cupón</p>
+                 <div class="font-semibold text-gray-900">
+                    Total a descuento:  <b class="text-indigo-600">{{descuentoCupon | currency : 'CLP': ''}}</b> CLP
+                    <span class="absolute inset-0"></span>
+                 </div>
+                 <p class="mt-1 text-gray-600 text-sm">Cantidad a descontar en cupón</p>
               </div>
            </div>
         </div>
+     </div>
+     <div>
+     </div>
+     <div class="border-b border-gray-900/10 pb-12">
+
+
+        <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-8">
+           <div class="sm:col-span-2 sm:col-start-1">
+              <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Fecha de Salida:</label>
+              <div class="mt-2">
+                 <input type="date" name="fechaInicio" id="fechaInicio" formControlName="fechaInicio" (input)="mostrarCantidadDiasMes()" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                 <p class="mt-1 text-gray-600 text-sm">Ingresa la fecha en la que se retira el residente.</p>
+              </div>
+           </div>
+           <div class="sm:col-span-2">
+              <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor Cupón: <b class="text-indigo-600">{{cupon | currency : 'CLP': ''}}</b> CLP</label>
+              <div class="mt-2">
+                 <input type="number" name="cupon" id="cupon" formControlName="cupon" (input)="calcularValorDia()" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                 <p class="mt-1 text-gray-600 text-sm">Ingresa el valor de cupón antes de modificar.</p>
+              </div>
+           </div>
+           <div class="sm:col-span-2">
+              <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Tipo de cupón:</label>
+              <div class="mt-2">
+                 <select name="TipoCupon" id="TipoCupon" formControlName="TipoCupon" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                    <option value="{{item}}" *ngFor="let item of tipoCupon">{{item}}</option>
+                 </select>
+                 <p class="mt-1 text-gray-600 text-sm">Selecciona el tipo de cupón que estás modificando.</p>
+              </div>
+           </div>
+        </div>
+        <div class="mt-2">
+           <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 sm:mx-1 rounded mt-3">Guardar Cupón</button>
+           <button type="reset" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 sm:mx-1 rounded mt-3">Limpiar</button>
+        </div>
+     </div>
+
      </form>
+     <div class="overflow-x-auto">
+      <table class="w-full mt-5 table-auto" *ngIf="cupones.length">
+        <thead class="bg-gray-200">
+          <tr class="text-left">
+             <th class="px-4 py-2">Tipo</th>
+             <th class="px-4 py-2">Valor X Día</th>
+             <th class="px-4 py-2">Modificación</th>
+             <th class="px-4 py-2">Monto</th>
+             <th class="px-4 py-2">Descripción:</th>
+          </tr>
+       </thead>
+       <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let item of cupones" class="border-t">
+             <td class="px-4 py-2">{{item.tipoCupon}}</td>
+             <td class="px-4 py-2">${{item.valorDia | currency : 'CLP': ''}}</td>
+             <td class="px-4 py-2">${{item.descuento | currency : 'CLP': ''}}</td>
+             <td class="px-4 py-2">${{item.total | currency : 'CLP': ''}}</td>
+             <td class="px-4 py-2">Edición {{fecha | date: 'dd-MM-yyyy'}}:{{item.descripcion}}</td>
+          </tr>
+       </tbody>
+      </table>
+   </div>
+
+
   </div>
 </main>

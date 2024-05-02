@@ -41,10 +41,6 @@ export class AguaCalienteComponent {
   ngOnInit(): void {
     this.obtenerValorUF();
     this.modificarValorContrato();
-
-    afterRender(() => {
-      this.calcularPrecioMetroCubico();
-    });
   }
 
   obtenerValorUF() {
@@ -54,12 +50,17 @@ export class AguaCalienteComponent {
         this.fecha = uf.Fecha;
       });
     });
+    this.calcularPrecioMetroCubico();
   }
 
   calcularPrecioMetroCubico() {
-    this.ufContrato = this.form.value.ufContrato;
-    this.precioMetroCubico = this.ufContrato * this.valorUF;
-    this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
+    if (this.isChecked) {
+      this.ufContrato = this.form.value.ufContrato;
+      this.precioMetroCubico = this.ufContrato * this.valorUF;
+      this.calcularPagoTotal(this.precioMetroCubico, this.consumoTotal);
+    }else{
+      this.precioMetroCubico = this.ufContrato * this.valorUF;
+    }
   }
   modificarValorContrato() {
     this.readonly = !this.readonly;
