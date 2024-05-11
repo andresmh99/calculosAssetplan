@@ -5,10 +5,9 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ApiService } from '../../services/api.service';
-import { Uf } from '../../interfaces/Iuf';
-import { CommonModule, CurrencyPipe } from '@angular/common';
-import { cupon, tipoCupon } from '../../interfaces/ICupones';
+import { CommonModule} from '@angular/common';
+import { cupon } from '../../interfaces/ICupones';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-salvoconducto',
@@ -90,8 +89,18 @@ export class SalvoconductoComponent {
     };
     if(this.form.valid){
       this.cupones.push(cupon);
-      this.form.reset();
+      this.form.controls.cupon.reset()
+      this.form.controls.TipoCupon.reset()
     }
 
+  }
+
+  resetValues(){
+    this.form.reset()
+    this.diasAPargar = 0
+    this.cantidadDiasMes = 0
+    this.totalCupon = 0
+    this.descuentoCupon = 0
+    this.cupon = 0
   }
 }

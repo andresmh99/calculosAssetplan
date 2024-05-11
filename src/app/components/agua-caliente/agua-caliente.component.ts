@@ -1,4 +1,4 @@
-import { afterRender, Component } from '@angular/core';
+import {  Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -43,14 +43,14 @@ export class AguaCalienteComponent {
     this.modificarValorContrato();
   }
 
-  obtenerValorUF() {
+   obtenerValorUF() {
     this.ufService.obtenerValorUF().subscribe((res) => {
-      res.UFs.map((uf) => {
-        this.valorUF = parseFloat(uf.Valor.replace('.', ''));
-        this.fecha = uf.Fecha;
-      });
-    });
-    this.calcularPrecioMetroCubico();
+      this.data = res.UFs
+      this.valorUF = parseFloat(this.data[0].Valor.replace('.', ''));
+      this.fecha = this.data[0].Fecha
+      this.calcularPrecioMetroCubico();
+    })
+    
   }
 
   calcularPrecioMetroCubico() {
