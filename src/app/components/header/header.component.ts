@@ -11,18 +11,21 @@ import { RouterModule } from '@angular/router';
 })
 export class HeaderComponent {
 
+  menu: HTMLElement | null = null;
 
   constructor(){
     afterRender(() =>{
-      const menu: HTMLElement | null = document.querySelector('#menu');
+      this.menu = document.querySelector('#menu');
 
-    if (menu) {
-      menu.classList.toggle('hidden')
-    }
+
     })
   }
 
   abrirMenu() {
-
+    console.log(this.menu);
+    console.log('hola');
+    if (this.menu) {
+      this.menu.classList.toggle('hidden')
+    }
   }
 }
