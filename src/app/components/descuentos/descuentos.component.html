@@ -1,0 +1,115 @@
+<main>
+  <div class=" bg-white rounded-md shadow p-4 max-w-7xl py-6 sm:px-6 my-5 mx-auto lg:px-8">
+     <div class="mx-auto max-w-7xl  py-6 ">
+        <h3 class="text-3xl font-bold tracking-tight text-gray-900">Cálculos término anticipado</h3>
+        <p class="mt-1 text-sm leading-6 text-gray-600">Herramienta para calcular multas y descuentos promocionales por terminación anticipada.</p>
+     </div>
+     <form class="needs-validation " novalidate [formGroup]="contratoForm" (ngSubmit)="calcularPromocion()" id="form">
+        <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-6">
+            <div class="group relative flex gap-x-6 rounded-lg p-4 bg-gray-50">
+              <div class="flex gap-2">
+                <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
+                  <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
+                  </svg>
+               </div>
+               <div>
+                  <div class="font-semibold text-gray-900">
+                     Días de descuento: <b class="text-indigo-600">{{diasPromocion}}</b>
+                     <span class="absolute inset-0"></span>
+                  </div>
+                  <p class="mt-1 text-gray-600 text-sm">Número de días que duró la promoción</p>
+               </div>
+             </div>
+               <div class="flex gap-2">
+                  <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
+                     <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M8 7V6a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1M3 18v-7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
+                     </svg>
+                  </div>
+                  <div>
+                     <div class="font-semibold text-gray-900">
+                        Valor mes: <b class="text-indigo-600">{{valorCupon | currency : 'CLP': ''}}</b> CLP
+                     </div>
+                     <p class="mt-1 text-gray-600 text-sm">Valor al que se le aplicó la promoción</p>
+                  </div>
+               </div>
+               <div class="flex gap-2">
+                  <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
+                     <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.891 15.107 15.11 8.89m-5.183-.52h.01m3.089 7.254h.01M14.08 3.902a2.849 2.849 0 0 0 2.176.902 2.845 2.845 0 0 1 2.94 2.94 2.849 2.849 0 0 0 .901 2.176 2.847 2.847 0 0 1 0 4.16 2.848 2.848 0 0 0-.901 2.175 2.843 2.843 0 0 1-2.94 2.94 2.848 2.848 0 0 0-2.176.902 2.847 2.847 0 0 1-4.16 0 2.85 2.85 0 0 0-2.176-.902 2.845 2.845 0 0 1-2.94-2.94 2.848 2.848 0 0 0-.901-2.176 2.848 2.848 0 0 1 0-4.16 2.849 2.849 0 0 0 .901-2.176 2.845 2.845 0 0 1 2.941-2.94 2.849 2.849 0 0 0 2.176-.901 2.847 2.847 0 0 1 4.159 0Z"/>
+                     </svg>
+                  </div>
+                  <div>
+                     <div class="font-semibold text-gray-900">
+                        % descuento: <b class="text-indigo-600">{{porcentajePromocion}}</b> CLP
+                     </div>
+                     <p class="mt-1 text-gray-600 text-sm">Valor porcentual de la promoción</p>
+                  </div>
+               </div>
+            </div>
+          </div>
+        </div>
+        <div>
+        </div>
+
+        <div class="border-b border-gray-900/10 pb-12">
+          <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-8">
+            <div class="sm:col-span-2 sm:col-start-1">
+               <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Fecha de Inicio:</label>
+               <div class="mt-2">
+                  <input type="date" name="fechaInicio" id="fechaInicio" formControlName="fechaInicio" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                  <p class="mt-1 text-gray-600 text-sm">Ingresa la fecha en que comenzó el contrato del residente.</p>
+               </div>
+            </div>
+            <div class="sm:col-span-2">
+               <label for="cantidadMeses" class="block text-sm font-medium leading-6 text-gray-900">Cantidad de días:</label>
+               <div class="mt-2">
+                  <input type="number" name="diasPromocion" id="diasPromocion" formControlName="diasPromocion"  required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                  <p class="mt-1 text-gray-600 text-sm">Ingresa la cantidad de meses que se extendió la promoción.</p>
+               </div>
+            </div>
+            <div class="sm:col-span-2">
+               <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor Cupón: <b class="text-indigo-600">{{ valorCupon| currency : 'CLP': ''}}</b> CLP</label>
+               <div class="mt-2">
+                  <input type="number" name="valorCupon" id="valorCupon" formControlName="valorCupon" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                  <p class="mt-1 text-gray-600 text-sm">Introduce el valor al que se aplicó la promoción.</p>
+               </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor porcentual: <b class="text-indigo-600">{{porcentajePromocion | currency : 'CLP': ''}}</b> %</label>
+              <div class="mt-2">
+                 <input type="number" name="porcentajePromocion" id="porcentajePromocion" (input)="calcularPromocion()" formControlName="porcentajePromocion" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                 <p class="mt-1 text-gray-600 text-sm">Introduce el valor porcentual del descuento. Por ejemplo, 50%.</p>
+              </div>
+           </div>
+          </div>
+        </div>
+     </form>
+     <div class="overflow-x-auto">
+        <table class="w-full mt-5 table-auto">
+           <thead class="bg-gray-200">
+            <tr class="text-left">
+              <th class="px-4 py-2">Valor por Día</th>
+              <th class="px-4 py-2">Fecha de Inicio</th>
+              <th class="px-4 py-2">Fecha de Término</th>
+              <th class="px-4 py-2">Total de Descuento</th>
+              <th class="px-4 py-2">Total a Cobrar</th>
+              <th class="px-4 py-2">Descripción</th>
+           </tr>
+           </thead>
+           <tbody class="divide-y divide-gray-200">
+            <tr  class="border-t" *ngIf="resultadoCalculo">
+              <td class="px-4 py-2">$ {{resultadoCalculo.valorDiaDescuento | currency : 'CLP': ''}}</td>
+              <td class="px-4 py-2">{{fechaInicio | date: 'dd-MM-YYYY' }}</td>
+              <td class="px-4 py-2">{{resultadoCalculo.fechaFinPromocion | date: 'dd-MM-YYYY' }}</td>
+               <td class="px-4 py-2">$ {{resultadoCalculo.totalDescuentos | currency : 'CLP': ''}} CLP</td>
+               <td class="px-4 py-2">$ {{resultadoCalculo.totalDescuentos| currency : 'CLP': ''}} CLP</td>
+               <td class="px-4 py-2">Edición {{resultadoCalculo.detalleDescuentos}}</td>
+            </tr>
+         </tbody>
+        </table>
+     </div>
+  </div>
+</main>

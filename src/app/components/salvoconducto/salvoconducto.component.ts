@@ -8,11 +8,12 @@ import {
 import { CommonModule} from '@angular/common';
 import { cupon } from '../../interfaces/ICupones';
 import { __values } from 'tslib';
+import { NoCommaNumberPipePipe } from '../../pipes/no-comma-number-pipe.pipe';
 
 @Component({
   selector: 'app-salvoconducto',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NoCommaNumberPipePipe],
   templateUrl: './salvoconducto.component.html',
   styleUrl: './salvoconducto.component.css',
 })
@@ -29,7 +30,7 @@ export class SalvoconductoComponent {
   descuentoCupon: number = 0;
 
   cupones: cupon[] = [];
-  tipoCupon = ['Arriendo', 'Gasto Comun', 'Energía Eléctrica', 'Agua'];
+  tipoCupon = ['Arriendo', 'Gasto Comun', 'Otro'];
 
   form = new FormGroup({
     id: new FormControl(''),
