@@ -10,22 +10,17 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-
   menu: HTMLElement | null = null;
 
-  constructor(){
-    afterRender(() =>{
+  constructor() {
+    afterRender(() => {
       this.menu = document.querySelector('#menu');
-
-
-    })
+    });
   }
 
   abrirMenu() {
-    console.log(this.menu);
-    console.log('hola');
     if (this.menu) {
-      this.menu.classList.toggle('hidden')
+      this.menu.classList.toggle('hidden');
     }
   }
 }
