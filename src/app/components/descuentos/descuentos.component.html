@@ -1,5 +1,5 @@
 <main>
-  <div class="max-w-md text-center m-auto">
+  <div class="  max-w-md text-center m-auto">
     <!-- Imagen de trabajo (SVG) -->
     <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-48 w-48 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M10 2a1 1 0 0 0-1 1v1.586a1 1 0 0 0 .293.707l5 5a1 1 0 0 0 1.414-1.414l-5-5A1 1 0 0 0 10 3.586V2z" />
@@ -17,7 +17,7 @@
         <h3 class="text-3xl font-bold tracking-tight text-gray-900">Cálculos término anticipado</h3>
         <p class="mt-1 text-sm leading-6 text-gray-600">Herramienta para calcular multas y descuentos promocionales por terminación anticipada.</p>
      </div>
-     <form class="needs-validation " novalidate [formGroup]="contratoForm" (ngSubmit)="calcularPromocion()" id="form">
+     <form class="needs-validation " novalidate [formGroup]="form" (ngSubmit)="calcularDescuentos()" id="form">
         <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-6">
             <div class="group relative flex gap-x-6 rounded-lg p-4 bg-gray-50">
@@ -29,7 +29,7 @@
                </div>
                <div>
                   <div class="font-semibold text-gray-900">
-                     Días de descuento: <b class="text-indigo-600">{{diasPromocion}}</b>
+                     Días de descuento: <b class="text-indigo-600">{{diasDescuento}}</b>
                      <span class="absolute inset-0"></span>
                   </div>
                   <p class="mt-1 text-gray-600 text-sm">Número de días que duró la promoción</p>
@@ -43,7 +43,7 @@
                   </div>
                   <div>
                      <div class="font-semibold text-gray-900">
-                        Valor mes: <b class="text-indigo-600">{{valorCupon | currency : 'CLP': ''}}</b> CLP
+                        Valor mes: <b class="text-indigo-600">{{canonMensual | currency : 'CLP': ''}}</b> CLP
                      </div>
                      <p class="mt-1 text-gray-600 text-sm">Valor al que se le aplicó la promoción</p>
                   </div>
@@ -56,7 +56,7 @@
                   </div>
                   <div>
                      <div class="font-semibold text-gray-900">
-                        % descuento: <b class="text-indigo-600">{{porcentajePromocion}}</b> CLP
+                        % descuento: <b class="text-indigo-600">{{tasaDescuento}}</b> CLP
                      </div>
                      <p class="mt-1 text-gray-600 text-sm">Valor porcentual de la promoción</p>
                   </div>
@@ -72,28 +72,28 @@
             <div class="sm:col-span-2 sm:col-start-1">
                <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Fecha de Inicio:</label>
                <div class="mt-2">
-                  <input type="date" name="fechaInicio" id="fechaInicio" formControlName="fechaInicio" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                  <input  type="date" name="fechaInicio" id="fechaInicio" formControlName="fechaInicio" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
                   <p class="mt-1 text-gray-600 text-sm">Ingresa la fecha en que comenzó el contrato del residente.</p>
                </div>
             </div>
             <div class="sm:col-span-2">
                <label for="cantidadMeses" class="block text-sm font-medium leading-6 text-gray-900">Cantidad de días:</label>
                <div class="mt-2">
-                  <input type="number" name="diasPromocion" id="diasPromocion" formControlName="diasPromocion"  required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                  <input type="number" name="diasDescuento" id="diasDescuento" formControlName="diasDescuento"  required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
                   <p class="mt-1 text-gray-600 text-sm">Ingresa la cantidad de meses que se extendió la promoción.</p>
                </div>
             </div>
             <div class="sm:col-span-2">
-               <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor Cupón: <b class="text-indigo-600">{{ valorCupon| currency : 'CLP': ''}}</b> CLP</label>
+               <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor Cupón: <b class="text-indigo-600">{{ canonMensual| currency : 'CLP': ''}}</b> CLP</label>
                <div class="mt-2">
-                  <input type="number" name="valorCupon" id="valorCupon" formControlName="valorCupon" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                  <input type="number" name="canonMensual" id="canonMensual" formControlName="canonMensual" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
                   <p class="mt-1 text-gray-600 text-sm">Introduce el valor al que se aplicó la promoción.</p>
                </div>
             </div>
             <div class="sm:col-span-2">
-              <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor porcentual: <b class="text-indigo-600">{{porcentajePromocion | currency : 'CLP': ''}}</b> %</label>
+              <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor porcentual: <b class="text-indigo-600">{{tasaDescuento | currency : 'CLP': ''}}</b> %</label>
               <div class="mt-2">
-                 <input type="number" name="porcentajePromocion" id="porcentajePromocion" (input)="calcularPromocion()" formControlName="porcentajePromocion" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                 <input type="number" name="tasaDescuento" id="tasaDescuento" (input)="calcularDescuentos()" formControlName="tasaDescuento" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
                  <p class="mt-1 text-gray-600 text-sm">Introduce el valor porcentual del descuento. Por ejemplo, 50%.</p>
               </div>
            </div>
@@ -104,23 +104,36 @@
         <table class="w-full mt-5 table-auto">
            <thead class="bg-gray-200">
             <tr class="text-left">
-              <th class="px-4 py-2">Valor por Día</th>
-              <th class="px-4 py-2">Fecha de Inicio</th>
-              <th class="px-4 py-2">Fecha de Término</th>
+              <th class="px-4 py-2">Mes</th>
+              <th class="px-4 py-2">Dias Descontados</th>
+              <th class="px-4 py-2 grid"><span>Valor x Dia</span> <span class="text-xs">Con descuento</span> </th>
               <th class="px-4 py-2">Total de Descuento</th>
+              
               <th class="px-4 py-2">Total a Cobrar</th>
               <th class="px-4 py-2">Descripción</th>
            </tr>
            </thead>
            <tbody class="divide-y divide-gray-200">
-            <tr  class="border-t" *ngIf="resultadoCalculo">
-              <td class="px-4 py-2">$ {{resultadoCalculo.valorDiaDescuento | currency : 'CLP': ''}}</td>
-              <td class="px-4 py-2">{{fechaInicio | date: 'dd-MM-YYYY' }}</td>
-              <td class="px-4 py-2">{{resultadoCalculo.fechaFinPromocion | date: 'dd-MM-YYYY' }}</td>
-               <td class="px-4 py-2">$ {{resultadoCalculo.totalDescuentos | currency : 'CLP': ''}} CLP</td>
-               <td class="px-4 py-2">$ {{resultadoCalculo.totalDescuentos| currency : 'CLP': ''}} CLP</td>
-               <td class="px-4 py-2">Edición {{resultadoCalculo.detalleDescuentos}}</td>
-            </tr>
+            @for (item of descuentos; track $index) {
+               <tr  class="border-t" >
+                  <td class="px-4 py-2"> {{item.mes}}</td>
+                  <td class="px-4 py-2">{{ item.diasDescontados }}</td>
+                  <td class="px-4 py-2">{{ item.montoDescuento / item.diasDescontados| currency : 'CLP': ''}} CLP</td>
+                  <td class="px-4 py-2">{{ item.montoDescuento | currency : 'CLP': ''}} CLP</td>
+                   <td class="px-4 py-2">$  CLP</td>
+                   <td class="px-4 py-2">$  CLP</td>
+                   <td class="px-4 py-2"></td>
+                </tr>
+            }
+            
+           <!--<tr  class="border-t" *ngIf="descuentos.length">
+               <td class="px-4 py-2">$ {{resultadoCalculo.valorDiaDescuento | currency : 'CLP': ''}}</td>
+               <td class="px-4 py-2">{{fechaInicio | date: 'dd-MM-YYYY' }}</td>
+               <td class="px-4 py-2">{{fechaFinal | date: 'dd-MM-YYYY' }}</td>
+                <td class="px-4 py-2">$ {{resultadoCalculo.totalDescuentos | currency : 'CLP': ''}} CLP</td>
+                <td class="px-4 py-2">$ {{resultadoCalculo.totalDescuentos| currency : 'CLP': ''}} CLP</td>
+                <td class="px-4 py-2">Edición {{resultadoCalculo.detalleDescuentos}}</td>
+             </tr>--> 
          </tbody>
         </table>
      </div>

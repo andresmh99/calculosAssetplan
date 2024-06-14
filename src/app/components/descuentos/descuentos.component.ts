@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -10,86 +10,99 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
   styleUrl: './descuentos.component.css'
 })
 export class DescuentosComponent {
-  contratoForm!: FormGroup;
-  resultadoCalculo: any;
+
+  canonMensual: number = 0;
+
   fechaInicio: Date = new Date();
-  diasPromocion: number = 0;
-  porcentajePromocion: number = 0
-  valorCupon: number = 0
+  fechaFinal: Date = new Date();
+  diasDescuento: number = 0;
+  tasaDescuento: number = 0;
+  descuentos: { mes: string, diasDescontados: number, montoDescuento: number }[] = [];
+  totalDescuento: number = 0;
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit() {
-      this.contratoForm = this.fb.group({
-          fechaInicio: ['', Validators.required],
-          diasPromocion: ['', [Validators.required, Validators.min(1)]],
-          porcentajePromocion: ['', [Validators.required, Validators.min(1)]],
-          valorCupon: ['', [Validators.required, Validators.min(1)]]
-      });
+  constructor() {
+    //this.fechaInicio = new Date('2023-07-15T00:00:00'); // Fecha de inicio de ejemplo con hora inicializada a 00:00:00
   }
 
-  calcularPromocion() {
-      if (this.contratoForm.invalid) {
-          alert('Por favor, complete todos los campos.');
-          return;
+  form = new FormGroup({
+    fechaInicio: new FormControl(),
+    diasDescuento: new FormControl(),
+    tasaDescuento: new FormControl(),
+    canonMensual: new FormControl(),
+  })
+
+  ngOnInit(): void {
+  }
+
+  calcularDescuentos() {
+    const valores = this.form.value;
+  
+    // Convertir la fecha de inicio a un objeto Date
+    this.fechaInicio = new Date(valores.fechaInicio + 'T00:00:00');
+  
+    // Calcular la fecha final sumando los días de descuento a la fecha de inicio
+    const fin = new Date(this.fechaInicio);
+    fin.setDate(fin.getDate() + valores.diasDescuento);
+    this.fechaFinal = fin;
+  
+    // Inicializar variables
+    let fechaActual = new Date(this.fechaInicio);
+    this.descuentos = [];
+    this.totalDescuento = 0;
+  
+    // Iterar hasta llegar a la fecha final
+    while (fechaActual < fin) {
+      const year = fechaActual.getFullYear();
+      const month = fechaActual.getMonth();
+      const diasEnMes = new Date(year, month + 1, 0).getDate();
+      const diasRestantesEnMes = diasEnMes - fechaActual.getDate() + 1;
+  
+      // Calcular días a descontar
+      let diasDescontar = Math.min(diasRestantesEnMes, valores.diasDescuento);
+  
+      // Ajuste para contar correctamente el día inicial
+      if (fechaActual.getDate() === this.fechaInicio.getDate()) {
+        diasDescontar--; // Restar 1 día para incluir el día inicial
       }
-
-      // Obtener los valores del formulario
-      const valores = this.contratoForm.value;
-      this.fechaInicio = new Date(valores.fechaInicio);
-      this.diasPromocion = valores.diasPromocion;
-      this.porcentajePromocion = valores.porcentajePromocion;
-      this.valorCupon = valores.valorCupon;
-
-      const [anio, mes, dia] = valores.fechaInicio.split('-').map(Number);
-
-      // Calcula la fecha de finalización de la promoción
-      const fechaFinPromocion = new Date(anio, mes - 1, dia);
-      fechaFinPromocion.setDate(this.fechaInicio.getDate() + this.diasPromocion);
-
-      // Calcula el total de descuentos
-      const totalDescuentos = (this.porcentajePromocion / 100) * this.valorCupon;
-
-      // Calcula el valor por día de descuento
-      const valorDiaDescuento = totalDescuentos / this.diasPromocion;
-
-      // Calcula el detalle de descuentos por mes
-      const detalleDescuentos = this.calcularDetalleDescuentos(this.fechaInicio, fechaFinPromocion, totalDescuentos);
-
-      // Asigna los resultados
-      this.resultadoCalculo = {
-          fechaFinPromocion: fechaFinPromocion.toISOString().split('T')[0],
-          totalDescuentos: totalDescuentos.toFixed(2),
-          valorDiaDescuento: valorDiaDescuento.toFixed(2),
-          detalleDescuentos: detalleDescuentos
-      };
-
-      console.log(detalleDescuentos);
-  }
-
-  calcularDetalleDescuentos(fechaInicio: Date, fechaFin: Date, totalDescuentos: number) {
-      const detalle: { mes: string, descuento: number }[] = [];
-      const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-      // Inicializa un objeto para almacenar el descuento por mes
-      const descuentosPorMes: { [mes: string]: number } = {};
-      meses.forEach(mes => {
-          descuentosPorMes[mes] = 0;
-      });
-
-      // Itera sobre los días de la promoción
-      let fechaActual = new Date(fechaInicio);
-      while (fechaActual <= fechaFin) {
-          const mesActual = meses[fechaActual.getMonth()];
-          descuentosPorMes[mesActual] += totalDescuentos / this.contratoForm.value.diasPromocion;
-          fechaActual.setDate(fechaActual.getDate() + 1);
+  
+      const montoDescuento = diasDescontar * valores.canonMensual / diasEnMes * (valores.tasaDescuento / 100);
+      this.totalDescuento += montoDescuento;
+  
+      // Buscar si ya existe un registro para el mes actual
+      const mesActual = fechaActual.toLocaleString('default', { month: 'long' });
+      const descuentoExistente = this.descuentos.find(d => d.mes === mesActual);
+  
+      if (descuentoExistente) {
+        // Si ya existe, sumar al registro existente
+        descuentoExistente.diasDescontados += diasDescontar;
+        descuentoExistente.montoDescuento += montoDescuento;
+      } else {
+        // Si no existe, crear un nuevo registro
+        this.descuentos.push({
+          mes: mesActual,
+          diasDescontados: diasDescontar,
+          montoDescuento: montoDescuento
+        });
       }
-
-      // Convierte el objeto en un array de objetos para el detalle
-      Object.keys(descuentosPorMes).forEach(mes => {
-          detalle.push({ mes: mes, descuento: descuentosPorMes[mes] });
-      });
-
-      return detalle;
+  
+      // Avanzar la fecha actual al siguiente periodo
+      fechaActual.setDate(fechaActual.getDate() + diasDescontar);
+      valores.diasDescuento -= diasDescontar; // Actualizar los días de descuento restantes
+    }
+  
+    console.log(this.descuentos);
+    console.log(this.fechaInicio);
+    console.log(this.fechaFinal);
   }
+  
+
+  imprimirDescuentos() {
+    console.log(`Descuentos aplicados:`);
+    this.descuentos.forEach(descuento => {
+      console.log(`${descuento.mes}: ${descuento.diasDescontados} días descontados - Descuento: ${descuento.montoDescuento.toFixed(2)} pesos`);
+    });
+    console.log(`Total descuento aplicado: ${this.totalDescuento.toFixed(2)} pesos`);
+  }
+  
+
 }
