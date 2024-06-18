@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -89,19 +89,16 @@ export class DescuentosComponent {
       fechaActual.setDate(fechaActual.getDate() + diasDescontar);
       valores.diasDescuento -= diasDescontar; // Actualizar los días de descuento restantes
     }
-  
-    console.log(this.descuentos);
-    console.log(this.fechaInicio);
-    console.log(this.fechaFinal);
+
   }
   
 
-  imprimirDescuentos() {
-    console.log(`Descuentos aplicados:`);
-    this.descuentos.forEach(descuento => {
-      console.log(`${descuento.mes}: ${descuento.diasDescontados} días descontados - Descuento: ${descuento.montoDescuento.toFixed(2)} pesos`);
-    });
-    console.log(`Total descuento aplicado: ${this.totalDescuento.toFixed(2)} pesos`);
+
+
+  mostrarValores(){
+    this.diasDescuento = this.form.value.diasDescuento
+    this.canonMensual = this.form.value.canonMensual
+    this.tasaDescuento = this.form.value.tasaDescuento
   }
   
 
