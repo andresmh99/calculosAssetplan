@@ -1,40 +1,38 @@
 <main>
-  <div class="max-w-md text-center m-auto">
-    <!-- Imagen de trabajo (SVG) -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-48 w-48 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M10 2a1 1 0 0 0-1 1v1.586a1 1 0 0 0 .293.707l5 5a1 1 0 0 0 1.414-1.414l-5-5A1 1 0 0 0 10 3.586V2z" />
-        <path fill-rule="evenodd" d="M4.293 6.293a1 1 0 0 0 0 1.414l5 5a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0z" />
-        <path fill-rule="evenodd" d="M10 15.414a1 1 0 0 0 1.707.707l5-5a1 1 0 0 0-1.414-1.414l-5 5a1 1 0 0 0-.293.707z" />
-        <path fill-rule="evenodd" d="M5.707 13.293a1 1 0 0 0 0-1.414l-5 5a1 1 0 0 0 1.414 1.414l5-5a1 1 0 0 0-1.414 0z" />
-    </svg>
-    <!-- Mensaje de mantenimiento o trabajo -->
-    <h1 class="text-3xl font-bold text-gray-800 mb-4">Página en Mantenimiento</h1>
-    <p class="text-lg text-gray-600 mb-8">Estamos trabajando en mejorar nuestra página. Por favor, vuelva más tarde.</p>
-</div>
-
-  <div class=" hidden bg-white rounded-md shadow p-4 max-w-7xl py-6 sm:px-6 my-5 mx-auto lg:px-8">
-     <div class="mx-auto max-w-7xl  py-6 ">
-        <h3 class="text-3xl font-bold tracking-tight text-gray-900">Cálculos término anticipado</h3>
-        <p class="mt-1 text-sm leading-6 text-gray-600">Herramienta para calcular multas y descuentos promocionales por terminación anticipada.</p>
-     </div>
-     <form class="needs-validation " novalidate [formGroup]="form" (ngSubmit)="calcularDescuentos()" id="form">
-        <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div class="md:col-span-6">
-            <div class="group relative flex gap-x-6 rounded-lg p-4 bg-gray-50">
-              <div class="flex gap-2">
-                <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
-                  <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
-                  </svg>
-               </div>
-               <div>
-                  <div class="font-semibold text-gray-900">
-                     Días de descuento: <b class="text-indigo-600">{{diasDescuento}}</b>
-                     <span class="absolute inset-0"></span>
+   <div class="hidden max-w-md text-center m-auto">
+      <!-- Imagen de trabajo (SVG) -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-48 w-48 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+         <path fill-rule="evenodd" d="M10 2a1 1 0 0 0-1 1v1.586a1 1 0 0 0 .293.707l5 5a1 1 0 0 0 1.414-1.414l-5-5A1 1 0 0 0 10 3.586V2z" />
+         <path fill-rule="evenodd" d="M4.293 6.293a1 1 0 0 0 0 1.414l5 5a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0z" />
+         <path fill-rule="evenodd" d="M10 15.414a1 1 0 0 0 1.707.707l5-5a1 1 0 0 0-1.414-1.414l-5 5a1 1 0 0 0-.293.707z" />
+         <path fill-rule="evenodd" d="M5.707 13.293a1 1 0 0 0 0-1.414l-5 5a1 1 0 0 0 1.414 1.414l5-5a1 1 0 0 0-1.414 0z" />
+      </svg>
+      <!-- Mensaje de mantenimiento o trabajo -->
+      <h1 class="text-3xl font-bold text-gray-800 mb-4">Página en Mantenimiento</h1>
+      <p class="text-lg text-gray-600 mb-8">Estamos trabajando en mejorar nuestra página. Por favor, vuelva más tarde.</p>
+   </div>
+   <div class="  bg-white rounded-md shadow p-4 max-w-7xl py-6 sm:px-6 my-5 mx-auto lg:px-8">
+      <div class="mx-auto max-w-7xl  py-6 ">
+         <h3 class="text-3xl font-bold tracking-tight text-gray-900">Cálculos término anticipado</h3>
+         <p class="mt-1 text-sm leading-6 text-gray-600">Herramienta para calcular descuentos promocionales por terminación anticipada.</p>
+      </div>
+      <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+         <div class="md:col-span-6">
+            <div class="group relative flex flex-col gap-y-6 sm:flex-row sm:gap-x-6 rounded-lg p-4 bg-gray-50">
+               <div class="flex gap-2">
+                  <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
+                     <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
+                     </svg>
                   </div>
-                  <p class="mt-1 text-gray-600 text-sm">Número de días que duró la promoción</p>
+                  <div>
+                     <div class="font-semibold text-gray-900">
+                        Días de descuento: <b class="text-indigo-600">{{diasDescuento}}</b>
+                        <span class="absolute inset-0"></span>
+                     </div>
+                     <p class="mt-1 text-gray-600 text-sm">Número de días que duró la promoción</p>
+                  </div>
                </div>
-             </div>
                <div class="flex gap-2">
                   <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
                      <svg class="w-6 h-6 text-indigo-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -62,13 +60,11 @@
                   </div>
                </div>
             </div>
-          </div>
-        </div>
-        <div>
-        </div>
-
-        <div class=" border-gray-900/10 pb-12">
-          <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-8">
+         </div>
+      </div>
+      <form class="needs-validation " novalidate [formGroup]="form" (ngSubmit)="calcularDescuentos()" id="form">
+      <div class=" border-gray-900/10 pb-12">
+         <div class="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-8">
             <div class="sm:col-span-2 sm:col-start-1">
                <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Fecha de Inicio:</label>
                <div class="mt-2">
@@ -86,47 +82,55 @@
             <div class="sm:col-span-2">
                <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor Cupón: <b class="text-indigo-600">{{ canonMensual| currency : 'CLP': ''}}</b> CLP</label>
                <div class="mt-2">
-                  <input (input)="mostrarValores()" (input)="calcularDescuentos()" type="number" name="canonMensual" id="canonMensual" formControlName="canonMensual" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                  <input (input)="onInputChange()" type="number" name="canonMensual" id="canonMensual" formControlName="canonMensual" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
                   <p class="mt-1 text-gray-600 text-sm">Introduce el valor al que se aplicó la promoción.</p>
                </div>
             </div>
             <div class="sm:col-span-2">
-              <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor porcentual: <b class="text-indigo-600">{{tasaDescuento | currency : 'CLP': ''}}</b> %</label>
-              <div class="mt-2">
-                 <input (input)="mostrarValores()" type="range" [(value)]="tasaDescuento" min="0" max="100" step="5" name="tasaDescuento" id="tasaDescuento" (input)="calcularDescuentos()" formControlName="tasaDescuento" required class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                 <p class="mt-1 text-gray-600 text-sm">Introduce el valor porcentual del descuento. Por ejemplo, 50%.</p>
-              </div>
-           </div>
-          </div>
-        </div>
-     </form>
-     @if (descuentos) {
+               <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor porcentual: <b class="text-indigo-600">{{tasaDescuento | currency : 'CLP': ''}}</b> %</label>
+               <div class="mt-2">
+                  <input 
+                     type="range" 
+                     min="0" 
+                     max="100" 
+                     step="5" 
+                     name="tasaDescuento" 
+                     id="tasaDescuento" 
+                     formControlName="tasaDescuento" 
+                     required 
+                     class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                     (input)="onInputChange()">
+                  <p class="mt-1 text-gray-600 text-sm">Introduce el valor porcentual del descuento. Por ejemplo, 50%.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      </form>
+      @if (descuentos.length) {
       <div class="grid md:grid-cols-8 border-t">
          <div class="overflow-x-auto col-span-6">
             <table class="w-full mt-5 table-auto rounded-lg bg-gray-50 overflow-hidden">
-              <thead class="bg-gray-200">
-                <tr class="text-left">
-                  <th class="px-2 py-2">Mes</th>
-                  <th class="px-2 py-2">Días</th>
-                  <th class="px-2 py-2 grid"><span>Valor x Día</span> <span class="text-xs">Con descuento</span></th>
-                  <th class="px-2 py-2">Descuento x mes</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y">
-                @for (item of descuentos; track $index) {
-                  <tr class="border-t">
-                    <td class="px-2 py-2"> {{item.mes | titlecase}}</td>
-                    <td class="px-2 py-2">{{ item.diasDescontados }}</td>
-                    <td class="px-2 py-2">{{ item.montoDescuento / item.diasDescontados | currency : 'CLP' : ''}} CLP</td>
-                    <td class="px-2 py-2">{{ item.montoDescuento | currency : 'CLP' : ''}} CLP</td>
+               <thead class="bg-gray-200">
+                  <tr class="text-left">
+                     <th class="px-2 py-2">Mes</th>
+                     <th class="px-2 py-2">Días</th>
+                     <th class="px-2 py-2 grid"><span>Valor x Día</span> <span class="text-xs">Con descuento</span></th>
+                     <th class="px-2 py-2">Descuento x mes</th>
                   </tr>
-                }
-              </tbody>
+               </thead>
+               <tbody class="divide-y">
+                  @for (item of descuentos; track $index) {
+                  <tr class="border-t">
+                     <td class="px-2 py-2"> {{item.mes | titlecase}}</td>
+                     <td class="px-2 py-2">{{ item.diasDescontados }}</td>
+                     <td class="px-2 py-2">{{ item.montoDescuento / item.diasDescontados | currency : 'CLP' : ''}} CLP</td>
+                     <td class="px-2 py-2">{{ item.montoDescuento | currency : 'CLP' : ''}} CLP</td>
+                  </tr>
+                  }
+               </tbody>
             </table>
-          </div>
-          
+         </div>
          <div class="col-span-2">
-
             <table class="w-full mt-5 md:ml-5 table-auto rounded-lg bg-gray-50 overflow-hidden">
                <thead class="bg-gray-200">
                   <tr class="text-left">
@@ -136,24 +140,21 @@
                   </tr>
                </thead>
                <tbody class="divide-y">
-                 <tr>
+                  <tr>
                      <td class="px-2 py-2">
-                        Decuentos por mes: @for (item of descuentos; track $index) {
-                           <p>
-                          {{item.mes | titlecase}}: {{item.montoDescuento | currency: 'CLP': ''}} CLP - ({{item.diasDescontados}} Días)
-                           </p>
+                        Descuentos por mes: @for (item of descuentos; track $index) {
+                        <p>
+                           {{item.mes | titlecase}}: {{item.montoDescuento | currency: 'CLP': ''}} CLP - ({{item.diasDescontados}} Días)
+                        </p>
                         }
                         Total Descuento: <b class="text-indigo-600">{{totalDescuento | currency: 'CLP': ''}}</b> CLP <br>
                         Fecha Termino promoción: {{fechaFinal | date: 'dd-MM-YYYY'}}
                      </td>
-                 </tr>
+                  </tr>
                </tbody>
             </table>
-           
-           </div>
          </div>
-
-     }
-     
-  </div>
+      </div>
+      }
+   </div>
 </main>
