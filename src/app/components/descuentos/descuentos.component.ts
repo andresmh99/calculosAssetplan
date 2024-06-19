@@ -16,7 +16,7 @@ export class DescuentosComponent {
   fechaInicio: Date = new Date();
   fechaFinal: Date = new Date();
   diasDescuento: number = 0;
-  tasaDescuento: number = 0;
+  tasaDescuento: number = 50;
   descuentos: { mes: string, diasDescontados: number, montoDescuento: number }[] = [];
   totalDescuento: number = 0;
 
@@ -36,6 +36,7 @@ export class DescuentosComponent {
 
   calcularDescuentos() {
     const valores = this.form.value;
+    this.tasaDescuento = valores.tasaDescuento
   
     // Convertir la fecha de inicio a un objeto Date
     this.fechaInicio = new Date(valores.fechaInicio + 'T00:00:00');
@@ -65,7 +66,7 @@ export class DescuentosComponent {
         diasDescontar--; // Restar 1 día para incluir el día inicial
       }
   
-      const montoDescuento = diasDescontar * valores.canonMensual / diasEnMes * (valores.tasaDescuento / 100);
+      const montoDescuento = diasDescontar * valores.canonMensual / diasEnMes * (this.tasaDescuento / 100);
       this.totalDescuento += montoDescuento;
   
       // Buscar si ya existe un registro para el mes actual
@@ -98,7 +99,6 @@ export class DescuentosComponent {
   mostrarValores(){
     this.diasDescuento = this.form.value.diasDescuento
     this.canonMensual = this.form.value.canonMensual
-    this.tasaDescuento = this.form.value.tasaDescuento
   }
   
 

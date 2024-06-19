@@ -1,5 +1,5 @@
 <main>
-  <div class="  max-w-md text-center m-auto">
+  <div class="max-w-md text-center m-auto">
     <!-- Imagen de trabajo (SVG) -->
     <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-48 w-48 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M10 2a1 1 0 0 0-1 1v1.586a1 1 0 0 0 .293.707l5 5a1 1 0 0 0 1.414-1.414l-5-5A1 1 0 0 0 10 3.586V2z" />
@@ -19,7 +19,7 @@
      </div>
      <form class="needs-validation " novalidate [formGroup]="form" (ngSubmit)="calcularDescuentos()" id="form">
         <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div class="sm:col-span-6">
+          <div class="md:col-span-6">
             <div class="group relative flex gap-x-6 rounded-lg p-4 bg-gray-50">
               <div class="flex gap-2">
                 <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-white">
@@ -80,20 +80,20 @@
                <label for="cantidadMeses" class="block text-sm font-medium leading-6 text-gray-900">Cantidad de días:</label>
                <div class="mt-2">
                   <input (input)="mostrarValores()" type="number" name="diasDescuento" id="diasDescuento" formControlName="diasDescuento"  required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
-                  <p class="mt-1 text-gray-600 text-sm">Ingresa la cantidad de meses que se extendió la promoción.</p>
+                  <p class="mt-1 text-gray-600 text-sm">Ingresa la cantidad de días que se extendió la promoción.</p>
                </div>
             </div>
             <div class="sm:col-span-2">
                <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor Cupón: <b class="text-indigo-600">{{ canonMensual| currency : 'CLP': ''}}</b> CLP</label>
                <div class="mt-2">
-                  <input (input)="mostrarValores()" type="number" name="canonMensual" id="canonMensual" formControlName="canonMensual" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                  <input (input)="mostrarValores()" (input)="calcularDescuentos()" type="number" name="canonMensual" id="canonMensual" formControlName="canonMensual" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
                   <p class="mt-1 text-gray-600 text-sm">Introduce el valor al que se aplicó la promoción.</p>
                </div>
             </div>
             <div class="sm:col-span-2">
               <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Valor porcentual: <b class="text-indigo-600">{{tasaDescuento | currency : 'CLP': ''}}</b> %</label>
               <div class="mt-2">
-                 <input (input)="mostrarValores()" type="number" name="tasaDescuento" id="tasaDescuento" (input)="calcularDescuentos()" formControlName="tasaDescuento" required class="block rounded-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-full">
+                 <input (input)="mostrarValores()" type="range" [(value)]="tasaDescuento" min="0" max="100" step="5" name="tasaDescuento" id="tasaDescuento" (input)="calcularDescuentos()" formControlName="tasaDescuento" required class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                  <p class="mt-1 text-gray-600 text-sm">Introduce el valor porcentual del descuento. Por ejemplo, 50%.</p>
               </div>
            </div>
@@ -126,14 +126,33 @@
           </div>
           
          <div class="col-span-2">
-           <div class="mt-5 md:ml-5 p-3 rounded-lg bg-gray-50">
-            <ul>
-               <li>Total Descuento: <b class="text-indigo-600">{{totalDescuento | currency: 'CLP': ''}}</b> CLP</li>
-               <li>Descripción: {{descuentos}}</li>
-            </ul>
+
+            <table class="w-full mt-5 md:ml-5 table-auto rounded-lg bg-gray-50 overflow-hidden">
+               <thead class="bg-gray-200">
+                  <tr class="text-left">
+                     <th class="px-2 py-4">
+                        Descripción: 
+                     </th>
+                  </tr>
+               </thead>
+               <tbody class="divide-y">
+                 <tr>
+                     <td class="px-2 py-2">
+                        Decuentos por mes: @for (item of descuentos; track $index) {
+                           <p>
+                          {{item.mes | titlecase}}: {{item.montoDescuento | currency: 'CLP': ''}} CLP - ({{item.diasDescontados}} Días)
+                           </p>
+                        }
+                        Total Descuento: <b class="text-indigo-600">{{totalDescuento | currency: 'CLP': ''}}</b> CLP <br>
+                        Fecha Termino promoción: {{fechaFinal | date: 'dd-MM-YYYY'}}
+                     </td>
+                 </tr>
+               </tbody>
+            </table>
+           
            </div>
          </div>
-        </div>
+
      }
      
   </div>
