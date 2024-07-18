@@ -80,6 +80,10 @@
                  <p class="mt-1 text-gray-600">Cantidad de m3 consumida x Precio m3</p>
                  <span class="font-semibold text-gray-900"><b class="text-indigo-600">{{totalPago | currency : 'CLP': ''}}</b> CLP</span>
               </div>
+              <div>
+               <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Descripción:</label>
+               <p class="mt-1 text-gray-600">LECTURA ANTERIOR: {{lecturaInicial}} m3, LECTURA ACTUAL: {{lecturaFinal}} m3, CONSUMO: {{consumoTotal | number}} m3, PRECIO M3: $ <b  class="text-indigo-600">{{precioMetroCubico | currency : 'CLP': ''}}</b> CLP, TOTAL A PAGAR: $ <b class="text-indigo-600">{{totalPago | currency : 'CLP': ''}}</b> CLP</p>
+            </div>
            </div>
         </div>
      </form>
